@@ -1,6 +1,8 @@
+package org.apache.datacommons.protectr
 
 import org.apache.spark.SparkConf
 import org.scalatest.{FunSuite, ShouldMatchers}
+
 
 class UnecnryptedRDDTest extends FunSuite with ShouldMatchers {
 
