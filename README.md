@@ -6,7 +6,7 @@ A Scala / Java / Python library for anonymization, encryption and redaction oper
 
 It is currently maintained by a team of volunteers.
 
-Post questions and comments to the Google group, or email them directly to data-commons@googlegroups.com.
+Post questions and comments to the Google group, or email them directly to data-commons-toolchain@googlegroups.com.
 
 Docs are available at http://data-commons.github.io/protectr
 Or check out the Scaladoc, Javadoc, or Python doc.
