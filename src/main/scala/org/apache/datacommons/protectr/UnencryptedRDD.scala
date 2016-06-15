@@ -9,7 +9,8 @@ object UnencryptedRDD {
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("SparkJoins").setMaster("local")
     val context = new SparkContext(conf)
-
-    println("hello")
+    val list: List[Int] = List(1,2,3,4)
+    val rdd: RDD[Int] = context.parallelize(list)
+    print(rdd.count())
   }
 }
