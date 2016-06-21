@@ -2,7 +2,7 @@ package org.apache.datacommons.protectr.encryptors
 
 import com.n1analytics.paillier.{PaillierPrivateKey, PaillierPublicKey}
 
-class EncryptionKeyPair(seed:Int) {
+class EncryptionKeyPair(seed:Int) extends Serializable{
 
   private val paillierPrivateKey: PaillierPrivateKey = PaillierPrivateKey.create(seed)
 
