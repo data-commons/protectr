@@ -1,5 +1,5 @@
 ## Protectr
-
+[![Build Status](https://travis-ci.org/data-commons/protectr.svg?branch=master)](https://travis-ci.org/data-commons/protectr)
 #### Data Protection Library for Spark
 
 A Scala / Java / Python library for anonymization, encryption and redaction operations for large datasets on Apache Spark.
