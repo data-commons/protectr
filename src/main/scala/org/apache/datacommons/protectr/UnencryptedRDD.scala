@@ -1,16 +1,17 @@
 package org.apache.datacommons.protectr
 
+import org.apache.spark.{TaskContext, Partition}
+import org.apache.spark.annotation.DeveloperApi
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{SparkContext, SparkConf}
 
 
-object UnencryptedRDD {
 
-  def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("SparkJoins").setMaster("local")
-    val context = new SparkContext(conf)
-    val list: List[Int] = List(1,2,3,4)
-    val rdd: RDD[Int] = context.parallelize(list)
-    print(rdd.count())
+class UnencryptedRDD(parent: RDD[String]) extends RDD[String](parent) {
+  @DeveloperApi
+  override def compute(split: Partition, context: TaskContext): Iterator[String] = {
+    parent.compute(split, context)
   }
+
+  override protected def getPartitions: Array[Partition] = parent.partitions
 }
+
