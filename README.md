@@ -17,7 +17,7 @@ Or check out the Scaladoc, Javadoc, or Python doc.
 - Latest Stable 0.5. Coming soon!
 
 #### Documentation Wiki
-- http://data-commons.github.io/prep-buddy
+- http://data-commons.github.io/protectr
 
 #### Contributing
 - Coming Soon!
