@@ -1,12 +1,13 @@
-package org.apache.datacommons.protectr.encryptors
+package org.apache.datacommons.protectr.rdds
 
 import java.math.BigInteger
 
 import com.n1analytics.paillier.EncryptedNumber
+import org.apache.datacommons.protectr.encryptors.EncryptionKeyPair
 import org.apache.datacommons.protectr.types.FileType
-import org.apache.spark.{TaskContext, Partition}
 import org.apache.spark.annotation.DeveloperApi
 import org.apache.spark.rdd.RDD
+import org.apache.spark.{Partition, TaskContext}
 
 class HomomorphicallyEncryptedRDD
 (RDD: RDD[String], keyPair: EncryptionKeyPair, fileType: FileType) extends RDD[String](RDD) {

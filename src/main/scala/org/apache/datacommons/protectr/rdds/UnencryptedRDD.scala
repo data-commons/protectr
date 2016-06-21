@@ -2,7 +2,7 @@ package org.apache.datacommons.protectr.rdds
 
 import com.n1analytics.paillier.PaillierContext
 import com.n1analytics.paillier.PaillierPublicKey
-import org.apache.datacommons.protectr.encryptors.{EncryptionKeyPair, HomomorphicallyEncryptedRDD}
+import org.apache.datacommons.protectr.encryptors.EncryptionKeyPair
 import org.apache.datacommons.protectr.types.{CSV, FileType}
 import org.apache.spark.annotation.DeveloperApi
 import org.apache.spark.rdd.RDD

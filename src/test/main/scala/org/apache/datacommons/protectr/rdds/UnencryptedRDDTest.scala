@@ -2,7 +2,7 @@ package org.apache.datacommons.protectr.rdds
 
 import java.math.BigInteger
 
-import org.apache.datacommons.protectr.encryptors.{HomomorphicallyEncryptedRDD, EncryptionKeyPair}
+import org.apache.datacommons.protectr.encryptors.EncryptionKeyPair
 import org.apache.datacommons.protectr.types.CSV
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
