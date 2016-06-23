@@ -2,7 +2,7 @@ package org.apache.datacommons.protectr.rdds
 
 import java.math.BigInteger
 
-import com.n1analytics.paillier.EncryptedNumber
+import com.n1analytics.paillier.{PaillierPrivateKey, EncryptedNumber}
 import org.apache.datacommons.protectr.encryptors.EncryptionKeyPair
 import org.apache.datacommons.protectr.types.FileType
 import org.apache.spark.annotation.DeveloperApi
@@ -26,6 +26,19 @@ class HomomorphicallyEncryptedRDD
     val sum: String = fileType.parseRecord(finalRecord)(columnIndex)
     val result: EncryptedNumber = EncryptedNumber.create(sum, keyPair.getPrivateKey)
     result.decrypt(keyPair.getPrivateKey).decodeApproximateBigInteger
+  }
+
+  def decrypt(columnIndex: Int): UnencryptedRDD = {
+    val privateKey: PaillierPrivateKey = keyPair.getPrivateKey
+    val javaRDD = this.map(row =>{
+        val values: Array[String] = fileType.parseRecord(row)
+        val encryptedNumber: EncryptedNumber = EncryptedNumber.create(
+          values(columnIndex), keyPair.getPrivateKey)
+        val bigInteger: BigInteger = privateKey.decrypt(encryptedNumber).decodeApproximateBigInteger
+        values(columnIndex) = bigInteger.toString
+        fileType.join(values)
+      })
+    new UnencryptedRDD(javaRDD,fileType)
   }
 
   override protected def getPartitions = RDD.partitions

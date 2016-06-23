@@ -1,7 +1,6 @@
 package org.apache.datacommons.protectr.rdds
 
-import com.n1analytics.paillier.PaillierContext
-import com.n1analytics.paillier.PaillierPublicKey
+import com.n1analytics.paillier.{PaillierContext, PaillierPublicKey}
 import org.apache.datacommons.protectr.encryptors.EncryptionKeyPair
 import org.apache.datacommons.protectr.types.{CSV, FileType}
 import org.apache.spark.annotation.DeveloperApi

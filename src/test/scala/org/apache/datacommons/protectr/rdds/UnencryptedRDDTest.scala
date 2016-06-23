@@ -42,4 +42,14 @@ class UnencryptedRDDTest extends FunSuite with BeforeAndAfterEach{
     val sum: BigInteger = encryptedRDD.sum(0)
     assert(sum==new BigInteger("15"))
   }
+
+  test("should be able to decrypt an RDD"){
+    val data = Array("1,23", "2,45", "3,65", "4,67", "5,23")
+    val dataSet: RDD[String] = sc.parallelize(data)
+    val unencryptedRDD: UnencryptedRDD = new UnencryptedRDD(dataSet,CSV)
+    val pair: EncryptionKeyPair = new EncryptionKeyPair(1024)
+    val encryptedRDD: HomomorphicallyEncryptedRDD = unencryptedRDD.encryptHomomorphically(pair,0)
+    val decryptedRDD = encryptedRDD.decrypt(0)
+    assert(decryptedRDD.collect() sameElements data)
+  }
 }
