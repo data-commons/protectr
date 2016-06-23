@@ -12,3 +12,4 @@ python/build/
 python/dist/
 python/*.egg-info
 *.log
+.DS_Store
