@@ -1,0 +1,19 @@
+body {
+	font-family: sans-serif;
+}
+.main {
+	align-self: center;
+	width: 80%;
+	padding: 0.5% 10% 2% 10%;
+}
+.aboutUs {
+	padding: 2% 0 0 0%;
+	font-size: 12pt;
+	font-weight: 100;
+}
+.protectr {
+	font-size: 15pt;
+}
+.title {
+	font-size: 30px;
+}
