@@ -9,6 +9,8 @@ import org.apache.spark.annotation.DeveloperApi
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{Partition, TaskContext}
 
+import scala.util.Try
+
 class HomomorphicallyEncryptedRDD(
                                    RDD: RDD[String],
                                    keyPair: EncryptionKeyPair,
@@ -16,7 +18,38 @@ class HomomorphicallyEncryptedRDD(
 
   private val privateKey: PaillierPrivateKey = keyPair.getPrivateKey
 
+  private def isEncryptedColumn(columnIndex: Int): Boolean = {
+    val firstColumnValue = fileType.parseRecord(this.first())(columnIndex)
+    Try(EncryptedNumber.create(firstColumnValue, privateKey)).isSuccess
+  }
+
+
   def sum(columnIndex: Int): BigInteger = {
+    if (isEncryptedColumn(columnIndex)) {
+      sumEncryptedColumn(columnIndex)
+    } else {
+      sumNonEncryptedColumn(columnIndex)
+    }
+  }
+
+  private def sumNonEncryptedColumn(columnIndex: Int): BigInteger = {
+    val finalRecord: String = this.reduce((firstRow, secondRow) => {
+
+      val firstRecord: Array[String] = fileType.parseRecord(firstRow)
+      val secondRecord: Array[String] = fileType.parseRecord(secondRow)
+
+      val firstNumber = new BigInteger(firstRecord(columnIndex))
+      val secondNumber = new BigInteger(secondRecord(columnIndex))
+
+      firstRecord(columnIndex) = firstNumber.add(secondNumber).toString
+      fileType.join(firstRecord)
+    })
+
+    val sum: String = fileType.parseRecord(finalRecord)(columnIndex)
+    new BigInteger(sum)
+  }
+
+  private def sumEncryptedColumn(columnIndex: Int): BigInteger = {
     val finalRecord: String = this.reduce((firstRow, secondRow) => {
 
       val firstRecord: Array[String] = fileType.parseRecord(firstRow)
